@@ -62,10 +62,6 @@ function have_not_installed_cask() {
 if os_is mac; then
 	export PACKAGE_INSTALLER="brew install"
 fi
-if os_is ubuntu; then
-	PACKAGE_INSTALLER="sudo apt install -y"
-	#sudo apt-get update
-fi
 
 function os_install() {
 	if have_not_installed "$1"; then
