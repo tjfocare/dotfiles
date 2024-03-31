@@ -38,24 +38,24 @@ function chip_is() {
 	false
 }
 
-function have_not_installed() {
-	if ! command -v "$1" &>/dev/null; then
+function package_installed() {
+	if command -v "$1" &>/dev/null; then
+		echo "$1 already installed"
 		return
 	fi
 
-	echo "$1 already installed"
 	false
 }
 
-function have_not_installed_cask() {
+function app_installed() {
 	# Replace hyphens with spaces
 	local app_name=$(echo "$1" | tr '-' ' ')
 
-	if [ ! -d "/Applications/$app_name.app" ]; then
+	if [ -d "/Applications/$app_name.app" ]; then
+		echo "$1 already installed"
 		return
 	fi
 
-	echo "$1 already installed"
 	false
 }
 
@@ -64,37 +64,37 @@ if os_is mac; then
 fi
 
 function os_install() {
-	if have_not_installed "$1"; then
+	if ! package_installed "$1"; then
 		$PACKAGE_INSTALLER "$1"
 	fi
 }
 
 function brew_install() {
-	if have_not_installed "$1"; then
+	if ! package_installed "$1"; then
 		brew install "$1"
 	fi
 }
 
 function pipx_install() {
-	if have_not_installed "$1"; then
+	if ! package_installed "$1"; then
 		pipx install "$1"
 	fi
 }
 
 function npm_global_install() {
-	if have_not_installed "$1"; then
+	if ! package_installed "$1"; then
 		npm install --global "$1"
 	fi
 }
 
 function gem_install() {
-	if have_not_installed "$1"; then
+	if ! package_installed "$1"; then
 		gem install "$1"
 	fi
 }
 
 function cargo_install() {
-	if have_not_installed "$1"; then
+	if ! package_installed "$1"; then
 		cargo install "$1"
 	fi
 }
@@ -108,7 +108,7 @@ function cargo_install() {
 # 		Example: golang.org/x/tools/gopls@latest
 ################################################################################
 function go_install() {
-	if have_not_installed "$1"; then
+	if ! package_installed "$1"; then
 		go install "$2"
 	fi
 }
@@ -120,12 +120,11 @@ function check_environment_variable() {
 	fi
 }
 
-function no_directory_exists_at() {
-	if [[ ! -d "$1" ]]; then
+function directory_exists() {
+	if [[ -d "$1" ]]; then
+		echo "$1 already exists"
 		return
 	fi
-
-	echo "$1 already exists"
 	false
 }
 

@@ -11,15 +11,15 @@ fi
 
 xcode-select --install || true
 
-if [ ! -d $HOME/.oh-my-zsh ]; then
+if ! directory_exists $HOME/.oh-my-zsh; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi;
 
-if [ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then
+if ! directory_exists $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions; then
 	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi;
 
-if [ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
+if ! directory_exists $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; then
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 fi;
 
@@ -40,13 +40,13 @@ homebrew_apps=(
 	tableplus
 )
 for app_cask in "${homebrew_apps[@]}"; do
-	if have_not_installed_cask "$app_cask"; then
+	if ! app_installed "$app_cask"; then
 		brew install --cask "$app_cask"
 	fi;
 done
 
 # NVM node manager https://github.com/nvm-sh/nvm
-if have_not_installed node; then
+if ! package_installed node; then
 	PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash'
 	# shellcheck source=/dev/null
 	# Make sure nvm is loaded
@@ -59,32 +59,32 @@ if have_not_installed node; then
 fi
 
 # zsh-abbr https://zsh-abbr.olets.dev/installation.html
-# if no_directory_exists_at "$HOME/opt/zsh-abbr"; then
+# if ! directory_exists "$HOME/opt/zsh-abbr"; then
 # 	rm -rf "$HOME/opt/zsh-abbr"
 # 	git clone https://github.com/olets/zsh-abbr --single-branch --branch main --depth 1 "$HOME/opt/zsh-abbr"
 # fi
 
 # Powerlevel10k https://github.com/romkatv/powerlevel10k#installation
-# if no_directory_exists_at "$HOME/opt/powerlevel10k"; then
+# if ! directory_exists "$HOME/opt/powerlevel10k"; then
 # 	rm -rf "$HOME/opt/powerlevel10k"
 # 	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/opt/powerlevel10k"
 # fi
 
 # Fzf https://github.com/junegunn/fzf/
-# if no_directory_exists_at "$HOME/opt/fzf"; then
+# if ! directory_exists "$HOME/opt/fzf"; then
 # 	rm -rf "$HOME/opt/fzf"
 # 	git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/opt/fzf"
 # 	"$HOME/opt/fzf/install" --bin --no-update-rc
 # fi
 
 # ZSH extra completions https://github.com/zsh-users/zsh-completions
-# if no_directory_exists_at "$HOME/opt/zsh-completions"; then
+# if ! directory_exists "$HOME/opt/zsh-completions"; then
 # 	rm -rf "$HOME/opt/zsh-completions"
 # 	git clone --depth 1 https://github.com/zsh-users/zsh-completions.git "$HOME/opt/zsh-completions"
 # fi
 
 # Golang
-# if have_not_installed go; then
+# if ! package_installed go; then
 # 	go_version="1.22.1"
 # 	if os_is mac && chip_is apple_silicon; then
 # 		wget "https://go.dev/dl/go${go_version}.darwin-arm64.tar.gz" -O "go.tar.gz"
@@ -97,7 +97,7 @@ fi
 # Ruby and rbenv
 # https://github.com/rbenv/rbenv
 # default_ruby_version=3.1.4
-# if have_not_installed rbenv; then
+# if ! package_installed rbenv; then
 # 	brew_install rbenv
 # 	brew_install ruby-build
 # fi
@@ -122,7 +122,7 @@ pipx_install isort          # https://pycqa.github.io/isort/
 pipx_install pyright        # https://github.com/microsoft/pyright
 
 # AWS
-if have_not_installed aws; then
+if ! package_installed aws; then
 	# https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html
 	if os_is mac; then
 		curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
@@ -137,7 +137,7 @@ fi
 # yard gems         # Need to run it twice because the first one fails (annoyingly)
 
 # Docker
-if have_not_installed docker; then
+if ! package_installed docker; then
 	# https://docs.docker.com/desktop/install/mac-install/
 	softwareupdate --install-rosetta --agree-to-license
 	curl -o Docker.dmg "https://desktop.docker.com/mac/main/arm64/Docker.dmg"

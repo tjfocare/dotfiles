@@ -8,7 +8,7 @@ source helpers.sh
 
 # Install Homebrew
 # https://brew.sh/
-if have_not_installed brew; then
+if ! package_installed brew; then
 	NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
@@ -32,7 +32,7 @@ fi
 # put the cloned git repos in our dotfiles repo
 mkdir -p "$HOME/opt"
 
-# Setup dotfiles and path variables from .profile
+# Setup dotfiles
 ./symlink.sh || { exit 1; }
 
 echo ''
