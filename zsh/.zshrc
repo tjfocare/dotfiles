@@ -5,7 +5,8 @@
 # 5) .zlogout - Can be used to execute commands when a shell exit.
 
 # Only export should be here
-export PATH="$PATH:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:$HOME/.scripts/"
+pipx_path=/Users/tomfocareta/.local/bin
+export PATH="$PATH:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:$HOME/.scripts/:$pipx_path"
 
 ###############################
 ### Zsh config START        ###

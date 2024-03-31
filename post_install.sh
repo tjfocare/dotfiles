@@ -36,7 +36,7 @@ for app_cask in "${homebrew_apps[@]}"; do
 	fi;
 done
 
-# pipx ensurepath
+pipx ensurepath
 pipx_install poetry # https://python-poetry.org
 
 # NVM node manager https://github.com/nvm-sh/nvm
