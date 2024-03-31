@@ -14,17 +14,6 @@ if not_ci; then
 	fc-list | grep "SauceCodeProNerdFont"
 fi
 
-# Prepare ubuntu
-if os_is ubuntu; then
-	sudo apt update
-	sudo apt-get update
-	sudo apt -y upgrade
-	sudo apt-get -y upgrade
-	os_install curl
-	os_install locales
-	sudo locale-gen en_AU.UTF-8
-fi
-
 # Install Homebrew
 # https://brew.sh/
 if have_not_installed brew; then
@@ -39,30 +28,12 @@ fi
 
 python_versions=(python@3 python@3.12 python@3.11 python@3.9)
 
-if os_is mac && chip_is intel; then
-	/usr/local/bin/brew install "${python_versions[@]}" stow || true
-
-	# Fix linking issues on the github actions macos runner
-	/usr/local/bin/brew update --force || true
-	/usr/local/bin/brew link --overwrite "${python_versions[@]}"
-
-	# Fix issues with node.js and icu4c on the Github Actions macos runner
-	/usr/local/bin/brew uninstall --ignore-dependencies --force node icu4c
-	/usr/local/bin/brew install node
-
-	# Make brew and stow available when symlinking
-	export PATH="/usr/local/bin:$PATH"
-fi
 if os_is mac && chip_is apple_silicon; then
 	/opt/homebrew/bin/brew install "${python_versions[@]}" stow
 
 	# Make brew and stow available when symlinking
 	export PATH="/opt/homebrew/bin:$PATH"
 	sudo ln -s /opt/homebrew/bin/python3 /opt/homebrew/bin/python
-fi
-if os_is ubuntu; then
-	/home/linuxbrew/.linuxbrew/bin/brew install "${python_versions[@]}"
-	sudo apt-get install -y stow
 fi
 
 # Create ~/opt directory so that symlinking doesn't
@@ -74,8 +45,8 @@ mkdir -p "$HOME/opt"
 
 echo ''
 echo 'Installing applications...'
-bash --login -ic "./post_install.sh"
+zsh --login -ic "./post_install.sh"
 
 echo ''
 echo 'Running tests...'
-bash --login -ic "./test.sh"
+zsh --login -ic "./test.sh"

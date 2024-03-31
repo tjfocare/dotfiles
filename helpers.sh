@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # If a .env file exists, load it
 if [ -f .env ]; then
