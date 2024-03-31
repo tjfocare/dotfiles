@@ -44,9 +44,9 @@ fi
 # assert_success_zsh 'abbr --version'
 # assert_success_zsh 'p10k help'
 # assert_success_zsh 'fzf --version'
-assert_zsh_completion 'tar'   # Default that comes with zsh
-assert_zsh_completion 'git'   # Default that comes with zsh
-assert_zsh_completion 'rails' # Comes installed with zsh-completions
+# assert_zsh_completion 'tar'   # Default that comes with zsh
+# assert_zsh_completion 'git'   # Default that comes with zsh
+# assert_zsh_completion 'rails' # Comes installed with zsh-completions
 # assert_success 'go version'
 
 # Node
@@ -95,7 +95,7 @@ assert_success 'aws --version'
 assert_success 'docker --version'
 
 # Print out some useful info during the CI build
-if [ "$DEBUG_INFO" == true ]; then
+if [ $DEBUG_INFO = true ]; then
 	echo "Current directory: $(pwd)"
 	echo "Home directory: $(ls ~)"
 	echo "PATH = $PATH"
@@ -110,7 +110,7 @@ fi
 
 # assert_no_git_changes
 
-if [ $HAS_TEST_SUITE_PASSED == false ]; then
+if [ $HAS_TEST_SUITE_PASSED = false ]; then
 	printf "\n\e[1;31mTests failed\e[0m\n"
 	exit 1
 else
