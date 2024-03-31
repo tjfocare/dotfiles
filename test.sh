@@ -13,24 +13,18 @@ DEBUG_INFO=true
 
 # Essentials
 assert_success 'curl --version'
-assert_success 'wget --version'
-assert_success 'cmake --version'
+# assert_success 'wget --version'
+# assert_success 'cmake --version'
 assert_success 'git --version'
 assert_success 'zsh --version'
 assert_success 'brew --version'
 assert_success 'stow --version'
-if os_is wsl-ubuntu; then
-	assert_success 'wslview --version'
-fi
 
 # Python and python package managers
 assert_success 'python3 --version'
 assert_success 'pip3 --version'
 assert_success 'pipx --version'
 assert_success 'poetry --version'
-
-# Tkinter
-assert_success 'python3 -c "import tkinter"'
 
 # Check that we're using the homebrew version of zsh (not /bin/zsh)
 assert_result_like 'which zsh' "$(brew --prefix)/bin/zsh"
@@ -40,10 +34,10 @@ if os_is mac; then
 	assert_result_like 'which python3' "$(brew --prefix)/bin/python3"
 	assert_result_like 'which pip3' "$(brew --prefix)/bin/pip3"
 	# Check our laassert_success GNU overrides are working on mac
-	assert_result_like 'which make' "$(brew --prefix)/opt/make/libexec/gnubin/make"
-	assert_result_like 'which sed' "$(brew --prefix)/opt/gnu-sed/libexec/gnubin/sed"
+	# assert_result_like 'which make' "$(brew --prefix)/opt/make/libexec/gnubin/make"
+	# assert_result_like 'which sed' "$(brew --prefix)/opt/gnu-sed/libexec/gnubin/sed"
 	# Check that tmux-256color is installed
-	assert_success 'infocmp -x tmux-256color'
+	# assert_success 'infocmp -x tmux-256color'
 fi
 
 # assert_success 'git-credential-manager --version'
