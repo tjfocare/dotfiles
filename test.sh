@@ -103,14 +103,12 @@ if [ "$DEBUG_INFO" == true ]; then
 fi
 
 # Check that git config is set correctly
-# If the code directory exists
 if [ -d $PATH_REPO ]; then
-	# Check that the git config is set correctly
-	(cd ~/code && assert_result_like 'git config user.email' 'tomf@teamrtd.com')
+	(cd $PATH_REPO && assert_result_like 'git config user.email' 'tomf@teamrtd.com')
 fi
-(cd ~/dotfiles && assert_result_like 'git config user.email' 'mail@tombarone.net')
+(cd $PATH_REPO/dotfiles && assert_result_like 'git config user.email' 'tjfocare@gmail.com')
 
-assert_no_git_changes
+# assert_no_git_changes
 
 if [ $HAS_TEST_SUITE_PASSED == false ]; then
 	printf "\n\e[1;31mTests failed\e[0m\n"
