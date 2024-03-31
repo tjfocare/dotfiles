@@ -1,16 +1,13 @@
 #!/usr/bin/env zsh
 
+# fzf # learn later
+# nvim # learn later
+# tig # learn later
 dotfiles_to_symlink=(
-	# alacritty
-	# bash
-	fzf # learn later
+	aliases
 	git
-	node
-	# nvim # learn later
-	system
-	# tig # learn later
-	# tmux
-	# tmuxinator
+	homebrew
+	nvm
 	zsh
 )
 

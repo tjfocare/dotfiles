@@ -47,6 +47,18 @@ function have_not_installed() {
 	false
 }
 
+function have_not_installed_cask() {
+	# Replace hyphens with spaces
+	local app_name=$(echo "$1" | tr '-' ' ')
+
+	if [ ! -d "/Applications/$app_name.app" ]; then
+		return
+	fi
+
+	echo "$1 already installed"
+	false
+}
+
 if os_is mac; then
 	export PACKAGE_INSTALLER="brew install"
 fi

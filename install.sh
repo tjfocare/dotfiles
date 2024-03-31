@@ -1,18 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 set -e # Fail the script if any installs fail
 set -x # Print each command as it runs
 
 # shellcheck source=/dev/null
 source helpers.sh
-
-check_environment_variable "DEBUG_INFO"
-check_environment_variable "CI"
-
-if not_ci; then
-	# Check that our fonts are installed
-	fc-list | grep "SauceCodeProNerdFont"
-fi
 
 # Install Homebrew
 # https://brew.sh/

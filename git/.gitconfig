@@ -1,0 +1,23 @@
+[alias]
+	st = status
+	ci = commit -v
+	co = checkout
+	d = diff
+	ds = diff --staged
+	merged = !git-merged
+[user]
+	name = Tom Focareta
+	email = tomf@teamrtd.com
+[core]
+	excludesfile = /Users/tomfocareta/.gitignore_global
+[push]
+	default = current
+[pull]
+	ff = only
+	rebase = false
+[log]
+	date = local
+# [url "https://github.com/"]
+# 	insteadOf = git@github.com:
+# [url "https://"]
+# 	insteadOf = git://

@@ -1,0 +1,39 @@
+# Config aliases
+alias zshconfig="code ~/.zshrc"
+alias aliasconfig="code ~/.aliases/.aliases"
+alias fnconfig="code ~/.aliases/.functions"
+
+# Git
+alias gl="git log --oneline --pretty=format:'%C(yellow)%h%Creset -%C(cyan)%d%Creset %s %Cgreen(%cr) %C(italic bold blue)<%an>%Creset'"
+alias glg="git log --graph --pretty=format:'%C(yellow)%h%Creset -%C(cyan)%d%Creset %s %Cgreen(%cr) %C(italic bold blue)<%an>%Creset'"
+alias glp="git log -p \":(exclude)package-lock.json\""
+alias gr="git reset"
+alias grh="git reset --hard"
+alias gpb="git remote update --prune"
+alias gpd="git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d"
+alias gpdf="git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D"
+
+# Node
+alias nrn="npm run nodemon"
+alias nrns="nodemon ./src/app.ts --server | bunyan -L"
+alias ns="npm run start"
+alias nd="npm run dev"
+alias nb="npm run build"
+alias npm-packages="jq '{dependencies, devDependencies}' package.json"
+alias npm-scripts="jq .scripts package.json"
+
+# Docker-dev
+alias start-core="cd ${PATH_REPO}/docker-dev-environment && docker compose up -d sine_core_client sine_core_worker && cd -"
+alias stop-core="cd ${PATH_REPO}/docker-dev-environment && docker compose down && cd -"
+alias clean-images="cd ${PATH_REPO}/docker-dev-environment && docker images | grep -Ev '(redis|postgis|squid|aws)' | awk '{print $3}' | xargs docker rmi -f && cd -"
+alias docker-login="aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin 153298309278.dkr.ecr.ap-southeast-2.amazonaws.com"
+
+# AWS
+alias get-caller-identity="aws sts get-caller-identity"
+alias aws-connect="~/.aws_token.sh -p 'sine-test' -s arn:aws:iam::625704270967:mfa/tom.focareta"
+alias aws-clear="~/.aws_token.sh -c"
+
+# Network
+# alias ifconfig-active="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
+# alias ifconfig-int="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active' | egrep -o -m 1 '^[^\t:]+'"
+alias ip='whoami ; echo -e \ - Public facing IP Address: ; curl ipecho.net/plain ; echo ; echo -e \ - Internal IP Address: ;  ipconfig getifaddr en0'

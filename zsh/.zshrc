@@ -1,56 +1,79 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-[[ ! -f ~/.p10k_instant_prompt.zsh ]] || source ~/.p10k_instant_prompt.zsh
+# 1) .zshenv - Should only contain user’s environment variables.
+# 2) .zprofile - Can be used to execute commands just after logging in.
+# 3) .zshrc - Should be used for the shell configuration and for executing commands.
+# 4) .zlogin - Same purpose than .zprofile, but read just after .zshrc.
+# 5) .zlogout - Can be used to execute commands when a shell exit.
 
-# P10k
-[[ ! -f ~/opt/powerlevel10k/powerlevel10k.zsh-theme ]] || source ~/opt/powerlevel10k/powerlevel10k.zsh-theme
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Only export should be here
+export PATH="$PATH:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:$HOME/.scripts/"
 
-# Disable auto-setting terminal title.
-DISABLE_AUTO_TITLE="true"
-set-terminal-title() {
-	echo -en "\033]0;$1\a"
-}
+###############################
+### Zsh config START        ###
+###############################
 
-# History sizes
-export SAVEHIST=1000000
-export HISTSIZE=1000000
-export HIST_IGNORE_SPACE=true
-export HISTFILE=~/.zsh_history
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
-# Use emacs mode
-bindkey -e
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="agnoster"
 
-# Make the delete key work
-bindkey "^[[3~" delete-char
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
 
-# Load nice zsh arg completions (already done from stuff below)
-autoload -U +X compinit && compinit
+plugins=(
+  aws
+  command-not-found
+  docker
+  git
+  gitfast
+  git-auto-fetch
+  git-prompt
+  history
+  npm
+  node
+  sudo
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
 
-# <Shift+Tab> to reverse menu complete
-bindkey '^[[Z' reverse-menu-complete
+# git-auto-fetch period (20 mins)
+GIT_AUTO_FETCH_INTERVAL=1200
 
-# Search history using whats on the line already (because .inputrc isn't loaded for zsh)
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey "^[[A" up-line-or-beginning-search
-bindkey "^[[B" down-line-or-beginning-search
+source $ZSH/oh-my-zsh.sh
 
-# Gcloud config
-if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+###############################
+### Zsh config END          ###
+###############################
 
-# Rbenv init (if rbenv is installed)
-if type rbenv &>/dev/null; then
-	eval "$(rbenv init - zsh)"
+###############################
+### User configuration      ###
+###############################
+
+# Load custom aliases
+if [ -f $HOME/.aliases/.functions ]; then
+  source $HOME/.aliases/.aliases
 fi
 
-# Plugins
-[[ ! -f ~/opt/zsh-abbr/zsh-abbr.zsh ]] || source ~/opt/zsh-abbr/zsh-abbr.zsh # this needs to be initialised down the bottom because of https://zsh-abbr.olets.dev/advanced.html#vi-mode
+# Load custom functions
+if [ -f $HOME/.aliases/.functions ]; then
+  . $HOME/.aliases/.functions
+fi
 
-# FZF load
-[[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
-[[ -f "$HOME/.config/zsh/fzf_git.zsh" ]] && source "$HOME/.config/zsh/fzf_git.zsh"
+###### Application-specific setup #####
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
+# Broot
+source $HOME/.config/broot/launcher/bash/br
+
+# Enable Python version management.
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+source /Users/tomfocareta/.config/broot/launcher/bash/br
+
+export PATH_REPO="$HOME/repositories"

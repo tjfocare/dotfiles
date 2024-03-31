@@ -9,6 +9,7 @@ source helpers.sh
 source test_functions.sh
 
 export HAS_TEST_SUITE_PASSED=true
+DEBUG_INFO=true
 
 # Essentials
 assert_success 'curl --version'
@@ -45,14 +46,14 @@ if os_is mac; then
 	assert_success 'infocmp -x tmux-256color'
 fi
 
-assert_success 'git-credential-manager --version'
-assert_success_zsh 'abbr --version'
-assert_success_zsh 'p10k help'
-assert_success_zsh 'fzf --version'
+# assert_success 'git-credential-manager --version'
+# assert_success_zsh 'abbr --version'
+# assert_success_zsh 'p10k help'
+# assert_success_zsh 'fzf --version'
 assert_zsh_completion 'tar'   # Default that comes with zsh
 assert_zsh_completion 'git'   # Default that comes with zsh
 assert_zsh_completion 'rails' # Comes installed with zsh-completions
-assert_success 'go version'
+# assert_success 'go version'
 
 # Node
 assert_success 'node --version'
@@ -63,106 +64,41 @@ assert_success 'corepack --version'
 assert_success 'yarn --version'
 
 # Rust
-assert_success 'rustup --version'
-assert_success 'cargo --version'
+# assert_success 'rustup --version'
+# assert_success 'cargo --version'
 
 # Ruby and rbenv
-eval "$(rbenv init - bash)"
-assert_success 'rbenv --version'
-assert_result_like 'ruby --version' "3.1.4"
+# eval "$(rbenv init - bash)"
+# assert_success 'rbenv --version'
+# assert_result_like 'ruby --version' "3.1.4"
 
 # Terminal handy tools
 assert_success 'vim --version'
-assert_success 'tmux -V'
-assert_success 'tig --version'
-assert_success 'eza --version'
+# assert_success 'tmux -V'
+# assert_success 'tig --version'
+# assert_success 'eza --version'
 assert_success 'bat --version'
-assert_success 'rg --version'
-assert_success 'type neofetch'
-assert_success 'tmuxinator version'
-assert_success 'perl --version'
-assert_success 'cpanm --version'
-assert_result_like 'which perl' "$(brew --prefix)/bin/perl"   # We want the homebrew
-assert_result_like 'which cpanm' "$(brew --prefix)/bin/cpanm" # perl and cpanm
-assert_success 'dua --version'
-assert_success 'just --version'
-
-# Language servers
-assert_success 'lua-language-server --version'
-assert_success 'shellcheck --version'
-assert_success 'bash-language-server --version'
-assert_success 'type vim-language-server'
-assert_success 'tsc --version'
-assert_success 'typescript-language-server --version'
-assert_success 'type vscode-html-language-server'
-assert_success 'type vscode-css-language-server'
-assert_success 'type vscode-json-language-server'
-assert_success 'type vscode-eslint-language-server'
-assert_success 'solargraph --version'
-assert_success 'yard --version'
-assert_success 'which vscode-html-language-server'
-assert_success 'which vscode-css-language-server'
-assert_success 'which vscode-json-language-server'
-assert_success 'gopls version'
-assert_success 'rust-analyzer --version'
-
-# Formatters and linters
-assert_success 'shfmt --version'
-assert_success 'prettier --version'
-assert_success 'ruff --version'
-assert_success 'isort --version'
-assert_success 'pyright --version'
-assert_success 'rubocop --version'
-assert_success 'htmlbeautifier --version'
-assert_success 'eslint --version'
-assert_success 'erb-format --version'
-assert_success 'sqlformat --version'
-assert_success 'djlint --version'
+# assert_success 'rg --version'
+# assert_success 'type neofetch'
+# assert_success 'tmuxinator version'
+# assert_success 'perl --version'
+# assert_success 'cpanm --version'
+# assert_result_like 'which perl' "$(brew --prefix)/bin/perl"   # We want the homebrew
+# assert_result_like 'which cpanm' "$(brew --prefix)/bin/cpanm" # perl and cpanm
+# assert_success 'dua --version'
+# assert_success 'just --version'
 
 # Neovim
-assert_success 'nvim --version'
-
-# Redis
-assert_success 'redis-cli --version'
-assert_result_like 'redis-cli PING' 'PONG'
+# assert_success 'nvim --version'
 
 # AWS
 assert_success 'aws --version'
-assert_success 'cdk --version'
-
-# Heroku
-assert_success 'heroku --version'
+# assert_success 'cdk --version'
 
 # Github
-assert_success 'gh --version'
+# assert_success 'gh --version'
 
-# Android tools
-assert_success 'adb --version'
-assert_success 'fastboot --version'
-
-# Cloud SQL proxy
-assert_success 'cloud_sql_proxy --version'
-
-# Mysql
-assert_success 'mysql --version'
-
-# Gcloud
-assert_success 'gcloud --version'
-
-# Global ruby gems
-assert_success 'rails --version'
-
-# Langauge / AI stuff
-assert_success 'sdl2-config --version'
-assert_success 'ffmpeg -version'
-
-# Stuff we want to check for but
-# but don't want to run in CI
-if not_ci; then
-	assert_success 'docker --version'
-	assert_success 'docker-compose --version'
-	assert_success 'gh copilot --version'
-fi
+assert_success 'docker --version'
 
 # Print out some useful info during the CI build
 if [ "$DEBUG_INFO" == true ]; then
@@ -174,9 +110,9 @@ fi
 
 # Check that git config is set correctly
 # If the code directory exists
-if [ -d ~/code ]; then
+if [ -d $PATH_REPO ]; then
 	# Check that the git config is set correctly
-	(cd ~/code && assert_result_like 'git config user.email' 'tbarone@comunet.com.au')
+	(cd ~/code && assert_result_like 'git config user.email' 'tomf@teamrtd.com')
 fi
 (cd ~/dotfiles && assert_result_like 'git config user.email' 'mail@tombarone.net')
 

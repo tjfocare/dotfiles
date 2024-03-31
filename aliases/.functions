@@ -1,0 +1,39 @@
+kill-port() {
+  port_no=$1
+  kill $(sudo lsof -t -i:${port_no})
+}
+
+find-port() {
+  port_no=$1
+  sudo lsof -i :${port_no}
+}
+
+function update_brew() {
+  if command -v brew &>/dev/null; then
+    echo 'Updating packages with Homebrew...'
+    brew update
+    brew upgrade
+    brew update --cask
+    brew cleanup
+  fi
+}
+
+ecs_fetch_task_definition() {
+  case $1 in
+    uat)
+      ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/uat-rtdnf-infrastructure-cfn-templates-RtdnfCoreServiceStack-KWEB2V8RONDP-TaskDefinition-4O5RAUS5PGLB"
+      ;;
+    stage)
+      ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/stage-rtdnf-infrastructure-cfn-templates-RtdCoreServiceStack-1JTQOX4806855-TaskDefinition-128QS796CDKZD"
+      ;;
+    prod)
+      ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/prod-rtdnf-infrastructure-cfn-templates-RtdCoreServiceStack-1UFB9QD0O32XL-TaskDefinition-1S2O4NEO64X62"
+      ;;
+    *)
+      echo "Invalid environment. Please specify uat, stage, or prod."
+      return 1
+      ;;
+  esac
+
+  aws ecs describe-task-definition --task-definition "$ARN" --query 'taskDefinition.containerDefinitions[*].image' --output text
+}
