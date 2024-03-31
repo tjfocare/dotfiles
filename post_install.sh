@@ -11,8 +11,16 @@ fi
 
 xcode-select --install || true
 
-if [ ! -d "/Users/tomfocareta/.oh-my-zsh" ]; then
+if [ ! -d $HOME/.oh-my-zsh ]; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi;
+
+if [ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then
+	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi;
+
+if [ ! -d $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 fi;
 
 # Homebrew apps
@@ -20,6 +28,7 @@ fi;
 # https://github.com/sharkdp/bat - cat clone
 brew bundle install --file=~/Brewfile
 
+# Core desktop apps
 homebrew_apps=(
 	appcleaner
 	bitwarden
@@ -35,9 +44,6 @@ for app_cask in "${homebrew_apps[@]}"; do
 		brew install --cask "$app_cask"
 	fi;
 done
-
-pipx ensurepath
-pipx_install poetry # https://python-poetry.org
 
 # NVM node manager https://github.com/nvm-sh/nvm
 if have_not_installed node; then
@@ -108,11 +114,12 @@ fi
 # cargo_install eza # https://github.com/eza-community/eza - ls clone
 # os_install ncdu   # https://dev.yorhel.nl/ncdu
 
-# Formatters and linters
+pipx ensurepath
+pipx_install poetry 				# https://python-poetry.org
+
 pipx_install ruff           # https://github.com/astral-sh/ruff 
 pipx_install isort          # https://pycqa.github.io/isort/
 pipx_install pyright        # https://github.com/microsoft/pyright
-# gem_install rubocop         # https://github.com/rubocop/rubocop
 
 # AWS
 if have_not_installed aws; then
@@ -123,9 +130,6 @@ if have_not_installed aws; then
 		rm AWSCLIV2.pkg
 	fi
 fi
-
-# Github CLI
-# brew_install gh
 
 # Global Ruby gems
 # gem_install rails # https://github.com/rails/rails
@@ -149,4 +153,4 @@ brew autoremove
 set +x
 
 echo "------------------------------"
-echo "Final steps:"
+echo "Successfully installed dependencies and applications ✅"
