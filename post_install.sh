@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 set -e # Fail the script if any installs fail
-set -x # Print each command as it runs
+# set -x # Print each command as it runs
 source helpers.sh
 
 if ! os_is mac; then

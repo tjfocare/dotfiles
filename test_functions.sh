@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 pass="\e[1;32mPass\e[0m"     # Print in green
 failed="\e[1;31mFailed\e[0m" # Print in red

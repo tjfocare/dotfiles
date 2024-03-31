@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # NOTE: Makes use of the global environment variable
 # HAS_TEST_SUITE_PASSED to determine if the test suite
@@ -9,7 +9,7 @@ source helpers.sh
 source test_functions.sh
 
 export HAS_TEST_SUITE_PASSED=true
-DEBUG_INFO=true
+DEBUG_INFO=false
 
 # Essentials
 assert_success 'curl --version'
