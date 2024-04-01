@@ -7,9 +7,9 @@
 	merged = !git-merged
 [user]
 	name = Tom Focareta
-	email = tomf@teamrtd.com
+	email = tjfocare@gmail.com
 [core]
-	excludesfile = /Users/tomfocareta/.gitignore_global
+	excludesfile = ~/.gitignore_global
 [push]
 	default = current
 [pull]
@@ -21,3 +21,6 @@
 # 	insteadOf = git@github.com:
 # [url "https://"]
 # 	insteadOf = git://
+[credential]
+[credential "https://github.com"]
+	email = tjfocare@gmail.com

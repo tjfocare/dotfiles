@@ -1,7 +1,6 @@
 # Node
 npm-debug.log
-node_modules/*
-node_modules*/*
+node_modules/
 
 # yarn v2
 .yarn/cache
@@ -49,3 +48,8 @@ Thumbs.db
 
 # Rope files
 .ropeproject
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
