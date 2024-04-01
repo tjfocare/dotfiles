@@ -60,3 +60,8 @@ export NVM_DIR="$HOME/.nvm"
 
 # Broot
 source $HOME/.config/broot/launcher/bash/br
+
+# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
