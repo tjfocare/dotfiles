@@ -21,6 +21,7 @@
 # 	insteadOf = git@github.com:
 # [url "https://"]
 # 	insteadOf = git://
-[credential]
-[credential "https://github.com"]
-	email = tjfocare@gmail.com
+[includeIf "gitdir:/Users/tfoc/repositories"]
+	email = "tjfocare@gmail.com"
+[includeIf "gitdir:/Users/tomfocareta/Repositories"]
+	email = "tomf@teamrtd.com"
