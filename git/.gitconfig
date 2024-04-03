@@ -2,7 +2,7 @@
 	st = status
 	ci = commit -v
 	co = checkout
-	d = diff
+	d = diff -- . ':!package-lock.json'
 	ds = diff --staged
 	merged = !git-merged
 [user]
