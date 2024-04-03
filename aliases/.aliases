@@ -1,7 +1,7 @@
 # Config aliases
 alias zshconfig="code ~/.zshrc"
-alias aliasconfig="code ~/.aliases/.aliases"
-alias fnconfig="code ~/.aliases/.functions"
+alias aliasconfig="code ~/.aliases"
+alias fnconfig="code ~/.functions"
 
 # Git
 alias gl="git log --oneline --pretty=format:'%C(yellow)%h%Creset -%C(cyan)%d%Creset %s %Cgreen(%cr) %C(italic bold blue)<%an>%Creset'"
