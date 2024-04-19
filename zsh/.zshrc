@@ -65,3 +65,7 @@ source $HOME/.config/broot/launcher/bash/br
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# Fuzzy search finder
+# Adds to PATH, inits auto-completion
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
