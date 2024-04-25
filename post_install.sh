@@ -6,22 +6,22 @@ source helpers.sh
 
 if ! os_is mac; then
 	echo 'Not running on mac, exiting...'
-	exit 1;
+	exit 1
 fi
 
 xcode-select --install || true
 
 if ! directory_exists $HOME/.oh-my-zsh; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-fi;
+fi
 
 if ! directory_exists $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions; then
 	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-fi;
+fi
 
 if ! directory_exists $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; then
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-fi;
+fi
 
 # Homebrew apps
 # https://pypa.github.io/pipx
@@ -42,7 +42,7 @@ homebrew_apps=(
 for app_cask in "${homebrew_apps[@]}"; do
 	if ! app_installed "$app_cask"; then
 		brew install --cask "$app_cask"
-	fi;
+	fi
 done
 
 # NVM node manager https://github.com/nvm-sh/nvm
@@ -62,7 +62,6 @@ fi
 if ! directory_exists "$HOME/opt/fzf-git"; then
 	rm -rf "$HOME/opt/fzf-git"
 	git clone https://github.com/junegunn/fzf-git.sh.git --single-branch --branch main --depth 1 "$HOME/opt/fzf-git"
-	source "$HOME/opt/fzf-git/fzf-git.sh"
 fi
 
 # zsh-abbr https://zsh-abbr.olets.dev/installation.html
@@ -109,11 +108,11 @@ fi
 # os_install ncdu   # https://dev.yorhel.nl/ncdu
 
 pipx ensurepath
-pipx_install poetry 				# https://python-poetry.org
+pipx_install poetry # https://python-poetry.org
 
-pipx_install ruff           # https://github.com/astral-sh/ruff 
-pipx_install isort          # https://pycqa.github.io/isort/
-pipx_install pyright        # https://github.com/microsoft/pyright
+pipx_install ruff    # https://github.com/astral-sh/ruff
+pipx_install isort   # https://pycqa.github.io/isort/
+pipx_install pyright # https://github.com/microsoft/pyright
 
 # AWS
 if ! package_installed aws; then

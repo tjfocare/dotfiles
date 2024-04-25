@@ -1,5 +1,6 @@
 # Adds to PATH, inits auto-completion
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source "$HOME/opt/fzf-git/fzf-git.sh"
+# [ -f ~/$HOME/opt/fzf-sh/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(fzf --zsh)"
 
 # fzf theme
