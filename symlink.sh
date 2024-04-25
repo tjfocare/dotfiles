@@ -5,6 +5,7 @@
 # tig # learn later
 dotfiles_to_symlink=(
 	aliases
+	fzf
 	git
 	homebrew
 	nvm
