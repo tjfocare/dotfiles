@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 
-# fzf # learn later
 # nvim # learn later
 # tig # learn later
 dotfiles_to_symlink=(
