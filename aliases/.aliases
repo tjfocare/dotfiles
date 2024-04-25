@@ -41,3 +41,5 @@ alias ip='whoami ; echo -e \ - Public facing IP Address: ; curl ipecho.net/plain
 # Command overrides
 # ---- Eza (better ls) -----
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+# ---- Zoxide (better cd) ----
+alias cd="z"

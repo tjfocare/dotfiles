@@ -66,6 +66,9 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+# Zoxide (better cd)
+eval "$(zoxide init zsh)"
+
 # Fuzzy search finder - fzf
 # Adds to PATH, inits auto-completion
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
