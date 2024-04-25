@@ -18,9 +18,8 @@ I also like the git diffs + Github Copilot chat in
 
 ## Fonts
 
-Fonts are in the `/fonts` directory, install them however the system wants. I'm
-a fan of [SourceCodePro](https://fonts.google.com/specimen/Source+Code+Pro)
-juiced up with [Nerd Fonts](https://www.nerdfonts.com/#home).
+Default font family is `"RobotoMono Nerd Font, MonoLisa, Dank Mono, Menlo, Monaco, 'Courier New', monospace"`.
+Make sure to use patched [fonts](https://www.nerdfonts.com/font-downloads)
 
 ## Install Notes
 
