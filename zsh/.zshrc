@@ -68,4 +68,5 @@ eval "$(pyenv init -)"
 
 # Fuzzy search finder
 # Adds to PATH, inits auto-completion
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(fzf --zsh)"
