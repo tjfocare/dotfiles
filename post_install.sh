@@ -58,6 +58,13 @@ if ! package_installed node; then
 	corepack enable
 fi
 
+# fzf-git
+if ! directory_exists "$HOME/opt/fzf-git"; then
+	rm -rf "$HOME/opt/fzf-git"
+	git clone https://github.com/junegunn/fzf-git.sh.git --single-branch --branch main --depth 1 "$HOME/opt/fzf-git"
+	source "$HOME/opt/fzf-git/fzf-git.sh"
+fi
+
 # zsh-abbr https://zsh-abbr.olets.dev/installation.html
 # if ! directory_exists "$HOME/opt/zsh-abbr"; then
 # 	rm -rf "$HOME/opt/zsh-abbr"
@@ -68,19 +75,6 @@ fi
 # if ! directory_exists "$HOME/opt/powerlevel10k"; then
 # 	rm -rf "$HOME/opt/powerlevel10k"
 # 	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/opt/powerlevel10k"
-# fi
-
-# Fzf https://github.com/junegunn/fzf/
-# if ! directory_exists "$HOME/opt/fzf"; then
-# 	rm -rf "$HOME/opt/fzf"
-# 	git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/opt/fzf"
-# 	"$HOME/opt/fzf/install" --bin --no-update-rc
-# fi
-
-# ZSH extra completions https://github.com/zsh-users/zsh-completions
-# if ! directory_exists "$HOME/opt/zsh-completions"; then
-# 	rm -rf "$HOME/opt/zsh-completions"
-# 	git clone --depth 1 https://github.com/zsh-users/zsh-completions.git "$HOME/opt/zsh-completions"
 # fi
 
 # Golang

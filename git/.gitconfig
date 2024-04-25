@@ -4,6 +4,7 @@
 	co = checkout
 	d = diff -- . ':!package-lock.json'
 	ds = diff --staged
+	df = diff --name-only
 	merged = !git-merged
 [user]
 	name = Tom Focareta
@@ -25,3 +26,17 @@
 	email = "tjfocare@gmail.com"
 [includeIf "gitdir:/Users/tomfocareta/Repositories"]
 	email = "tomf@teamrtd.com"
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true    # use n and N to move between diff sections
+	side-by-side = true
+	# delta detects terminal colors automatically; set one of these to disable auto-detection
+	# dark = true
+	# light = true
+[merge]
+	conflictstyle = diff3
+[diff]
+	colorMoved = default

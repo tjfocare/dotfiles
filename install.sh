@@ -25,6 +25,7 @@ if os_is mac && chip_is apple_silicon; then
 
 	# Make brew and stow available when symlinking
 	export PATH="/opt/homebrew/bin:$PATH"
+	# Uncomment for initial setup, not idempotent
 	# sudo ln -s /opt/homebrew/bin/python3 /opt/homebrew/bin/python
 fi
 
