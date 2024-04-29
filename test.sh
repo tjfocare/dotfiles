@@ -11,10 +11,10 @@ source test_functions.sh
 export HAS_TEST_SUITE_PASSED=true
 DEBUG_INFO=false
 
+# Check that we're using the homebrew version of zsh (not /bin/zsh)
+assert_result_like 'which zsh' "$(brew --prefix)/bin/zsh"
+
 # Essentials
-assert_success 'curl --version'
-# assert_success 'wget --version'
-# assert_success 'cmake --version'
 assert_success 'git --version'
 assert_success 'zsh --version'
 assert_success 'brew --version'
@@ -25,25 +25,15 @@ assert_success 'python3 --version'
 assert_success 'pip3 --version'
 assert_success 'pipx --version'
 assert_success 'poetry --version'
+assert_success 'pyenv --version'
 
-# Check that we're using the homebrew version of zsh (not /bin/zsh)
-assert_result_like 'which zsh' "$(brew --prefix)/bin/zsh"
+# Check that python and pip are installed in the right place
+assert_result_like 'which python3' "$(brew --prefix)/bin/python3"
+assert_result_like 'which pip3' "$(brew --prefix)/bin/pip3"
 
-if os_is mac; then
-	# Check that python and pip are installed in the right place
-	assert_result_like 'which python3' "$(brew --prefix)/bin/python3"
-	assert_result_like 'which pip3' "$(brew --prefix)/bin/pip3"
-	# Check our laassert_success GNU overrides are working on mac
-	# assert_result_like 'which make' "$(brew --prefix)/opt/make/libexec/gnubin/make"
-	# assert_result_like 'which sed' "$(brew --prefix)/opt/gnu-sed/libexec/gnubin/sed"
-	# Check that tmux-256color is installed
-	# assert_success 'infocmp -x tmux-256color'
-fi
-
-# assert_success 'git-credential-manager --version'
-# assert_success_zsh 'abbr --version'
-# assert_success_zsh 'p10k help'
-# assert_success_zsh 'fzf --version'
+assert_success_zsh 'fzf --version'
+assert_success_zsh 'fd --version'
+assert_success_zsh 'jq --version'
 # assert_zsh_completion 'tar'   # Default that comes with zsh
 # assert_zsh_completion 'git'   # Default that comes with zsh
 # assert_zsh_completion 'rails' # Comes installed with zsh-completions
@@ -67,30 +57,17 @@ assert_success 'yarn --version'
 # assert_result_like 'ruby --version' "3.1.4"
 
 # Terminal handy tools
-assert_success 'vim --version'
-# assert_success 'tmux -V'
-# assert_success 'tig --version'
-# assert_success 'eza --version'
+assert_success 'eza --version'
 assert_success 'bat --version'
-# assert_success 'rg --version'
-# assert_success 'type neofetch'
-# assert_success 'tmuxinator version'
-# assert_success 'perl --version'
-# assert_success 'cpanm --version'
-# assert_result_like 'which perl' "$(brew --prefix)/bin/perl"   # We want the homebrew
-# assert_result_like 'which cpanm' "$(brew --prefix)/bin/cpanm" # perl and cpanm
-# assert_success 'dua --version'
-# assert_success 'just --version'
+assert_success 'tldr --version'
+assert_result_like 'which vim' "$(brew --prefix)/bin/vim"
+assert_success 'zoxide --version'
 
 # Neovim
 # assert_success 'nvim --version'
 
 # AWS
 assert_success 'aws --version'
-# assert_success 'cdk --version'
-
-# Github
-# assert_success 'gh --version'
 
 assert_success 'docker --version'
 

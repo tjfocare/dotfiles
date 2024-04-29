@@ -6,8 +6,12 @@ set -x # Print each command as it runs
 # shellcheck source=/dev/null
 source helpers.sh
 
-# Install Homebrew
-# https://brew.sh/
+if ! os_is mac; then
+	echo 'Not running on mac, exiting...'
+	exit 1
+fi
+
+# Install Homebrew - https://brew.sh/
 if ! package_installed brew; then
 	NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
@@ -20,7 +24,7 @@ fi
 
 python_versions=(python@3 python@3.12 python@3.11 python@3.9)
 
-if os_is mac && chip_is apple_silicon; then
+if chip_is apple_silicon; then
 	/opt/homebrew/bin/brew install "${python_versions[@]}" stow
 
 	# Make brew and stow available when symlinking
@@ -29,8 +33,7 @@ if os_is mac && chip_is apple_silicon; then
 	# sudo ln -s /opt/homebrew/bin/python3 /opt/homebrew/bin/python
 fi
 
-# Create ~/opt directory so that symlinking doesn't
-# put the cloned git repos in our dotfiles repo
+# Clone setup git repos here
 mkdir -p "$HOME/opt"
 
 # Setup dotfiles

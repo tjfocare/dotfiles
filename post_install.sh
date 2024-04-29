@@ -4,11 +4,6 @@ set -e # Fail the script if any installs fail
 # set -x # Print each command as it runs
 source helpers.sh
 
-if ! os_is mac; then
-	echo 'Not running on mac, exiting...'
-	exit 1
-fi
-
 xcode-select --install || true
 
 if ! directory_exists $HOME/.oh-my-zsh; then
@@ -24,12 +19,9 @@ if ! directory_exists $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; t
 fi
 
 # Homebrew apps
-# https://pypa.github.io/pipx
-# https://github.com/sharkdp/bat - cat clone
 brew bundle install --file=~/Brewfile
 
-# Core desktop apps
-homebrew_apps=(
+homebrew_desktop_apps=(
 	appcleaner
 	bitwarden
 	keepingyouawake
@@ -39,7 +31,7 @@ homebrew_apps=(
 	spotify
 	tableplus
 )
-for app_cask in "${homebrew_apps[@]}"; do
+for app_cask in "${homebrew_desktop_apps[@]}"; do
 	if ! app_installed "$app_cask"; then
 		brew install --cask "$app_cask"
 	fi
@@ -54,7 +46,6 @@ if ! package_installed node; then
 	nvm install --lts # Install the latest LTS version of node
 	nvm use --lts
 	nvm alias default "lts/*"
-	npm install --global npm@latest
 	corepack enable
 fi
 
@@ -63,49 +54,6 @@ if ! directory_exists "$HOME/opt/fzf-git"; then
 	rm -rf "$HOME/opt/fzf-git"
 	git clone https://github.com/junegunn/fzf-git.sh.git --single-branch --branch main --depth 1 "$HOME/opt/fzf-git"
 fi
-
-# zsh-abbr https://zsh-abbr.olets.dev/installation.html
-# if ! directory_exists "$HOME/opt/zsh-abbr"; then
-# 	rm -rf "$HOME/opt/zsh-abbr"
-# 	git clone https://github.com/olets/zsh-abbr --single-branch --branch main --depth 1 "$HOME/opt/zsh-abbr"
-# fi
-
-# Powerlevel10k https://github.com/romkatv/powerlevel10k#installation
-# if ! directory_exists "$HOME/opt/powerlevel10k"; then
-# 	rm -rf "$HOME/opt/powerlevel10k"
-# 	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/opt/powerlevel10k"
-# fi
-
-# Golang
-# if ! package_installed go; then
-# 	go_version="1.22.1"
-# 	if os_is mac && chip_is apple_silicon; then
-# 		wget "https://go.dev/dl/go${go_version}.darwin-arm64.tar.gz" -O "go.tar.gz"
-# 	fi
-# 	tar -C "$HOME/opt" -xzf go.tar.gz
-# 	rm go.tar.gz
-# fi
-
-# NOTE: These take a long time
-# Ruby and rbenv
-# https://github.com/rbenv/rbenv
-# default_ruby_version=3.1.4
-# if ! package_installed rbenv; then
-# 	brew_install rbenv
-# 	brew_install ruby-build
-# fi
-# eval "$(rbenv init - bash)"
-
-# if os_is mac; then
-# 	rbenv install --skip-existing $default_ruby_version
-# 	rbenv global $default_ruby_version
-# fi
-
-# Terminal handy tools
-# os_install tmux   # https://github.com/tmux/tmux
-# os_install tig    # https://github.com/jonas/tig
-# cargo_install eza # https://github.com/eza-community/eza - ls clone
-# os_install ncdu   # https://dev.yorhel.nl/ncdu
 
 pipx ensurepath
 pipx_install poetry # https://python-poetry.org
@@ -117,17 +65,10 @@ pipx_install pyright # https://github.com/microsoft/pyright
 # AWS
 if ! package_installed aws; then
 	# https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html
-	if os_is mac; then
-		curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
-		sudo installer -pkg AWSCLIV2.pkg -target /
-		rm AWSCLIV2.pkg
-	fi
+	curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+	sudo installer -pkg AWSCLIV2.pkg -target /
+	rm AWSCLIV2.pkg
 fi
-
-# Global Ruby gems
-# gem_install rails # https://github.com/rails/rails
-# yard gems || true # Generate documentation for all installed gems (for solargraph)
-# yard gems         # Need to run it twice because the first one fails (annoyingly)
 
 # Docker
 if ! package_installed docker; then
@@ -155,3 +96,37 @@ set +x
 
 echo "------------------------------"
 echo "Successfully installed dependencies and applications ✅"
+
+# Unused stuff - delete eventually
+
+# Golang
+# if ! package_installed go; then
+# 	go_version="1.22.1"
+# 	if chip_is apple_silicon; then
+# 		wget "https://go.dev/dl/go${go_version}.darwin-arm64.tar.gz" -O "go.tar.gz"
+# 	fi
+# 	tar -C "$HOME/opt" -xzf go.tar.gz
+# 	rm go.tar.gz
+# fi
+
+# Ruby and rbenv - https://github.com/rbenv/rbenv
+# NOTE: These take a long time
+# default_ruby_version=3.1.4
+# if ! package_installed rbenv; then
+# 	brew_install rbenv
+# 	brew_install ruby-build
+# fi
+# eval "$(rbenv init - bash)"
+
+# rbenv install --skip-existing $default_ruby_version
+# rbenv global $default_ruby_version
+
+# Terminal handy tools
+# os_install tmux   # https://github.com/tmux/tmux
+# os_install tig    # https://github.com/jonas/tig
+# os_install ncdu   # https://dev.yorhel.nl/ncdu
+
+# Global Ruby gems
+# gem_install rails # https://github.com/rails/rails
+# yard gems || true # Generate documentation for all installed gems (for solargraph)
+# yard gems         # Need to run it twice because the first one fails (annoyingly)
