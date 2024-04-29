@@ -24,10 +24,10 @@ ecs_fetch_task_definition() {
       ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/uat-rtdnf-infrastructure-cfn-templates-RtdnfCoreServiceStack-KWEB2V8RONDP-TaskDefinition-4O5RAUS5PGLB"
       ;;
     stage)
-      ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/stage-rtdnf-infrastructure-cfn-templates-RtdCoreServiceStack-1JTQOX4806855-TaskDefinition-128QS796CDKZD"
+      ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/stage-rtdnf-infrastructure-cfn-templates-RtdnfCoreServiceStack-11EM7KRBEVVJU-TaskDefinition-1FQDYSKXM8V1Z"
       ;;
     prod)
-      ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/prod-rtdnf-infrastructure-cfn-templates-RtdCoreServiceStack-1UFB9QD0O32XL-TaskDefinition-1S2O4NEO64X62"
+      ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/prod-rtdnf-infrastructure-cfn-templates-RtdnfCoreServiceStack-1HGP0FTD0E3F9-TaskDefinition-OPZZM6VCKT8J"
       ;;
     *)
       echo "Invalid environment. Please specify uat, stage, or prod."
