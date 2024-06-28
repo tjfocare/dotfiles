@@ -21,12 +21,6 @@ function os_is() {
 	false
 }
 
-function ubuntu_release_number_is() {
-	ubuntu_release="$(grep DISTRIB_RELEASE /etc/lsb-release | cut -d '=' -f 2)"
-	[[ "$1" == "$ubuntu_release" ]] && return
-	false
-}
-
 function chip_is() {
 	uname="$(uname -m)"
 
@@ -59,16 +53,6 @@ function app_installed() {
 	false
 }
 
-if os_is mac; then
-	export PACKAGE_INSTALLER="brew install"
-fi
-
-function os_install() {
-	if ! package_installed "$1"; then
-		$PACKAGE_INSTALLER "$1"
-	fi
-}
-
 function brew_install() {
 	if ! package_installed "$1"; then
 		brew install "$1"
@@ -96,20 +80,6 @@ function gem_install() {
 function cargo_install() {
 	if ! package_installed "$1"; then
 		cargo install "$1"
-	fi
-}
-
-################################################################################
-# Install a go package if it hasn't been installed yet.
-# Arguments:
-# 	$1: The name of the package to install.
-# 		Example: gopls
-# 	$2: The path to the package to install.
-# 		Example: golang.org/x/tools/gopls@latest
-################################################################################
-function go_install() {
-	if ! package_installed "$1"; then
-		go install "$2"
 	fi
 }
 

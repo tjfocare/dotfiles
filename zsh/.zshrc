@@ -73,3 +73,6 @@ eval "$(zoxide init zsh)"
 if [ -f $HOME/.fzfconfig ]; then
   source $HOME/.fzfconfig
 fi
+
+# Rust
+source "$HOME/.cargo/env"

@@ -89,6 +89,16 @@ if ! directory_exists $HOME/Library/Fonts/$font; then
 	rm -rf $HOME/opt/$font.zip
 fi
 
+# Rust and Cargo https://www.rust-lang.org/tools/install
+if ! package_installed rustup; then
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+	source "$HOME/.cargo/env"
+fi
+
+# Zellij terminal multiplexer
+rustup update
+cargo install --locked zellij
+
 # Final cleanup steps
 brew cleanup
 brew autoremove
@@ -97,37 +107,3 @@ set +x
 
 echo "------------------------------"
 echo "Successfully installed dependencies and applications ✅"
-
-# Unused stuff - delete eventually
-
-# Golang
-# if ! package_installed go; then
-# 	go_version="1.22.1"
-# 	if chip_is apple_silicon; then
-# 		wget "https://go.dev/dl/go${go_version}.darwin-arm64.tar.gz" -O "go.tar.gz"
-# 	fi
-# 	tar -C "$HOME/opt" -xzf go.tar.gz
-# 	rm go.tar.gz
-# fi
-
-# Ruby and rbenv - https://github.com/rbenv/rbenv
-# NOTE: These take a long time
-# default_ruby_version=3.1.4
-# if ! package_installed rbenv; then
-# 	brew_install rbenv
-# 	brew_install ruby-build
-# fi
-# eval "$(rbenv init - bash)"
-
-# rbenv install --skip-existing $default_ruby_version
-# rbenv global $default_ruby_version
-
-# Terminal handy tools
-# os_install tmux   # https://github.com/tmux/tmux
-# os_install tig    # https://github.com/jonas/tig
-# os_install ncdu   # https://dev.yorhel.nl/ncdu
-
-# Global Ruby gems
-# gem_install rails # https://github.com/rails/rails
-# yard gems || true # Generate documentation for all installed gems (for solargraph)
-# yard gems         # Need to run it twice because the first one fails (annoyingly)
