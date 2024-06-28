@@ -24,6 +24,7 @@ brew bundle install --file=~/Brewfile
 homebrew_desktop_apps=(
 	appcleaner
 	bitwarden
+	discord
 	keepingyouawake
 	monitorcontrol
 	notion
