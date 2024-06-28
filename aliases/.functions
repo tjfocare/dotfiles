@@ -20,19 +20,19 @@ function update_brew() {
 
 ecs_fetch_task_definition() {
   case $1 in
-    uat)
-      ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/uat-rtdnf-infrastructure-cfn-templates-RtdnfCoreServiceStack-KWEB2V8RONDP-TaskDefinition-4O5RAUS5PGLB"
-      ;;
-    stage)
-      ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/stage-rtdnf-infrastructure-cfn-templates-RtdnfCoreServiceStack-11EM7KRBEVVJU-TaskDefinition-1FQDYSKXM8V1Z"
-      ;;
-    prod)
-      ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/prod-rtdnf-infrastructure-cfn-templates-RtdnfCoreServiceStack-1HGP0FTD0E3F9-TaskDefinition-OPZZM6VCKT8J"
-      ;;
-    *)
-      echo "Invalid environment. Please specify uat, stage, or prod."
-      return 1
-      ;;
+  uat)
+    ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/uat-rtdnf-infrastructure-cfn-templates-RtdnfCoreServiceStack-KWEB2V8RONDP-TaskDefinition-4O5RAUS5PGLB"
+    ;;
+  stage)
+    ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/stage-rtdnf-infrastructure-cfn-templates-RtdnfCoreServiceStack-11EM7KRBEVVJU-TaskDefinition-1FQDYSKXM8V1Z"
+    ;;
+  prod)
+    ARN="arn:aws:ecs:ap-southeast-2:153298309278:task-definition/prod-rtdnf-infrastructure-cfn-templates-RtdnfCoreServiceStack-1HGP0FTD0E3F9-TaskDefinition-OPZZM6VCKT8J"
+    ;;
+  *)
+    echo "Invalid environment. Please specify uat, stage, or prod."
+    return 1
+    ;;
   esac
 
   aws ecs describe-task-definition --task-definition "$ARN" --query 'taskDefinition.containerDefinitions[*].image' --output text

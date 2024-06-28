@@ -43,3 +43,6 @@ alias ip='whoami ; echo -e \ - Public facing IP Address: ; curl ipecho.net/plain
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 # ---- Zoxide (better cd) ----
 alias cd="z"
+
+# Zellij layouts
+alias zellij-mydeckhand="zellij --layout $HOME/.config/zellij/mydeckhand.kdl"
