@@ -9,9 +9,11 @@ brew "fd"
 brew "fzf"
 brew "git-delta"
 brew "jq"
+brew "qlmarkdown" # https://github.com/sbarex/QLMarkdown
 brew "pyenv"
 brew "pipx" # https://pypa.github.io/pipx
 brew "postgresql@14"
+brew "syntax-highlight" # https://github.com/sbarex/SourceCodeSyntaxHighlight
 brew "tldr"
 brew "vim"
 brew "zoxide"
