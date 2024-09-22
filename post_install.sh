@@ -28,7 +28,9 @@ homebrew_desktop_apps=(
 	keepingyouawake
 	monitorcontrol
 	notion
+	qlmarkdown # https://github.com/sbarex/QLMarkdown
 	scroll-reverser
+	syntax-highlight # https://github.com/sbarex/SourceCodeSyntaxHighlight
 	spotify
 	tableplus
 )
