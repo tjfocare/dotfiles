@@ -41,7 +41,7 @@ mkdir -p "$HOME/opt"
 
 echo ''
 echo 'Installing applications...'
-zsh --login -ic "./post_install.sh"
+zsh --login -ic "./application_install.sh"
 
 echo ''
 echo 'Running tests...'
