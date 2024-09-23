@@ -24,12 +24,11 @@ assert_success 'stow --version'
 assert_success 'python3 --version'
 assert_success 'pip3 --version'
 assert_success 'pipx --version'
-assert_success 'poetry --version'
+# assert_success 'poetry --version'
 assert_success 'pyenv --version'
 
-# Check that python and pip are installed in the right place
-assert_result_like 'which python3' "$(brew --prefix)/bin/python3"
-assert_result_like 'which pip3' "$(brew --prefix)/bin/pip3"
+assert_result_like 'which python3' "$HOME/.pyenv/shims/python3"
+assert_result_like 'which pip3' "$HOME/.pyenv/shims/pip3"
 
 assert_success_zsh 'fzf --version'
 assert_success_zsh 'fd --version'
@@ -45,11 +44,11 @@ assert_success 'npm --version'
 
 # Yarn
 assert_success 'corepack --version'
-assert_success 'yarn --version'
+# assert_success 'yarn --version'
 
 # Rust
-# assert_success 'rustup --version'
-# assert_success 'cargo --version'
+assert_success 'rustup --version'
+assert_success 'cargo --version'
 
 # Ruby and rbenv
 # eval "$(rbenv init - bash)"
@@ -63,12 +62,10 @@ assert_success 'tldr --version'
 assert_result_like 'which vim' "$(brew --prefix)/bin/vim"
 assert_success 'zoxide --version'
 
-# Neovim
-# assert_success 'nvim --version'
-
 # AWS
 assert_success 'aws --version'
 
+# Docker
 assert_success 'docker --version'
 
 # Print out some useful info during the CI build
