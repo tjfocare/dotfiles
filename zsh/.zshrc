@@ -62,9 +62,9 @@ export NVM_DIR="$HOME/.nvm"
 source $HOME/.config/broot/launcher/bash/br
 
 # Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
 
 # Zoxide (better cd)
 eval "$(zoxide init zsh)"

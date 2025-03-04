@@ -24,11 +24,11 @@ assert_success 'stow --version'
 assert_success 'python3 --version'
 assert_success 'pip3 --version'
 assert_success 'pipx --version'
-# assert_success 'poetry --version'
-assert_success 'pyenv --version'
+assert_success 'poetry --version'
+# assert_success 'pyenv --version'
 
-assert_result_like 'which python3' "$HOME/.pyenv/shims/python3"
-assert_result_like 'which pip3' "$HOME/.pyenv/shims/pip3"
+assert_result_like 'which python3' "opt/homebrew/bin/python3"
+assert_result_like 'which pip3' "opt/homebrew/bin/pip3"
 
 assert_success_zsh 'fzf --version'
 assert_success_zsh 'fd --version'
