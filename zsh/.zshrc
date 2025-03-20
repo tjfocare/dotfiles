@@ -30,10 +30,13 @@ plugins=(
   history
   npm
   node
+  nvm
   sudo
   zsh-autosuggestions
   zsh-syntax-highlighting # must be last plugin
 )
+
+zstyle ':omz:plugins:nvm' autoload yes
 
 GIT_AUTO_FETCH_INTERVAL=1200 # (20 mins)
 
