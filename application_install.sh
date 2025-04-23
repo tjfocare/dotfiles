@@ -86,7 +86,7 @@ fi
 # Fonts
 font="RobotoMono"
 if ! directory_exists $HOME/Library/Fonts/$font; then
-	curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/RobotoMono.zip -o $HOME/opt/$font.zip
+	curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/RobotoMono.zip -o $HOME/opt/$font.zip
 	unzip -q $HOME/opt/$font.zip -d ~/Library/Fonts/$font
 	rm -rf $HOME/opt/$font.zip
 fi

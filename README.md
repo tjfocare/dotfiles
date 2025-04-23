@@ -1,6 +1,6 @@
 # dotfiles
 
-My dotfiles across macOS and WSL2/Ubuntu.
+MacOS dotfiles.
 
 Clone and run `install.sh`. This will
 
@@ -30,20 +30,10 @@ All installs that involve cloning a git repo and installing from source, e.g.
 [`fzf`](https://github.com/junegunn/fzf), clone the repos to `$HOME/opt` and
 install from there.
 
-### Change the default shell
+### Change python version
 
-Assuming you've installed `zsh` with [homebrew](https://brew.sh/):
-
-```bash
-chsh -s "$(brew --prefix)/bin/zsh"
+```sh
+  brew unlink python3
+  sudo ln -s /opt/homebrew/bin/python3.9 /opt/homebrew/bin/python3
+  python --version
 ```
-
-### Tmux mouse support and Windows 10
-
-For whatever reason, there's an
-[issue](https://github.com/alacritty/alacritty/issues/1663) with alacritty on
-Windows 10 that causes tmux mouse mode to not work.
-
-This
-[comment](https://github.com/alacritty/alacritty/issues/1663#issuecomment-1917418514)
-has a workaround for now.
