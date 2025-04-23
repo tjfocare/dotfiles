@@ -6,9 +6,11 @@
 	ds = diff --staged
 	df = diff --name-only
 	merged = !git-merged
+	s = status
 [user]
 	name = Tom Focareta
 	email = tjfocare@gmail.com
+	# email = tomf@teamrtd.com
 [core]
 	excludesfile = ~/.gitignore_global
 [push]
