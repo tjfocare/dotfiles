@@ -22,15 +22,14 @@ fi
 # https://www.gnu.org/software/stow/
 # https://formulae.brew.sh/formula/python@3.11
 
-python_versions=(python@3 python@3.12 python@3.11 python@3.9)
+python_versions=(python@3 python@3.10)
 
 if chip_is apple_silicon; then
 	/opt/homebrew/bin/brew install "${python_versions[@]}" stow
 
 	# Make brew and stow available when symlinking
 	export PATH="/opt/homebrew/bin:$PATH"
-	# Uncomment for initial setup, not idempotent
-	sudo ln -s /opt/homebrew/bin/python3 /opt/homebrew/bin/python
+	sudo ln -sf /opt/homebrew/bin/python3 /opt/homebrew/bin/python
 fi
 
 # Clone setup git repos here

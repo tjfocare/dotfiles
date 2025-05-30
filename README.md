@@ -34,6 +34,29 @@ install from there.
 
 ```sh
   brew unlink python3
+  sudo rm /opt/homebrew/bin/python3
   sudo ln -s /opt/homebrew/bin/python3.9 /opt/homebrew/bin/python3
   python --version
+```
+
+### Managing Python symlinks
+
+The command `sudo ln -s /opt/homebrew/bin/python3 /opt/homebrew/bin/python` creates a symbolic link:
+
+- `ln -s`: Create a symbolic link
+- First path (`/opt/homebrew/bin/python3`): The target (original file)
+- Second path (`/opt/homebrew/bin/python`): The symlink location
+
+This makes `python` command point to `python3`, so you can use either command.
+
+View all Python-related symlinks:
+
+```sh
+  ls -la /opt/homebrew/bin/python*
+```
+
+Remove a Python symlink:
+
+```sh
+  sudo rm /opt/homebrew/bin/python3
 ```
