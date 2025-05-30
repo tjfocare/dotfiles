@@ -13,7 +13,6 @@ function update_brew() {
     echo 'Updating packages with Homebrew...'
     brew update
     brew upgrade
-    brew update --cask
     brew cleanup
   fi
 }
