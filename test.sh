@@ -77,9 +77,9 @@ fi
 
 # Check that git config is set correctly
 if [ -d "/Users/tomfocareta" ]; then
-	(cd $PATH_REPO && assert_result_like 'git config user.email' 'tomf@teamrtd.com')
+	(cd $PATH_REPO/toms-util-scripts && assert_result_like 'git config user.email' 'tomf@teamrtd.com' && cd -)
 elif [ -d "/Users/tfoc" ]; then
-	(cd $PATH_REPO/dotfiles && assert_result_like 'git config user.email' 'tjfocare@gmail.com')
+	(cd $PATH_REPO/dotfiles && assert_result_like 'git config user.email' 'tjfocare@gmail.com' && cd -)
 fi
 
 # assert_no_git_changes
