@@ -59,6 +59,7 @@ if ! directory_exists "$HOME/opt/fzf-git"; then
 fi
 
 pipx ensurepath
+pipx_install beancount
 pipx_install poetry # https://python-poetry.org
 
 pipx_install ruff    # https://github.com/astral-sh/ruff

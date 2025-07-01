@@ -6,7 +6,8 @@
 
 # Only export should be here
 pipx_path=$HOME/.local/bin
-export PATH="$PATH:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:$HOME/.scripts/:$pipx_path"
+homebrew_path="/opt/homebrew/bin"
+export PATH="$homebrew_path:$PATH:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:$HOME/.scripts/:$pipx_path"
 
 # Display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"

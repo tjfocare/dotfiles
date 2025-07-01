@@ -21,12 +21,15 @@ assert_success 'brew --version'
 assert_success 'stow --version'
 
 # Python and python package managers
+assert_success 'python --version'
 assert_success 'python3 --version'
 assert_success 'pip3 --version'
 assert_success 'pipx --version'
 assert_success 'poetry --version'
-# assert_success 'pyenv --version'
+assert_success 'pyenv --version'
 
+assert_result_like 'python --version' "3"
+assert_result_like 'python3 --version' "3"
 assert_result_like 'which python3' "opt/homebrew/bin/python3"
 assert_result_like 'which pip3' "opt/homebrew/bin/pip3"
 
@@ -41,10 +44,6 @@ assert_success_zsh 'jq --version'
 # Node
 assert_success 'node --version'
 assert_success 'npm --version'
-
-# Yarn
-assert_success 'corepack --version'
-# assert_success 'yarn --version'
 
 # Rust
 assert_success 'rustup --version'
@@ -77,10 +76,11 @@ if [ $DEBUG_INFO = true ]; then
 fi
 
 # Check that git config is set correctly
-if [ -d $PATH_REPO ]; then
+if [ -d "/Users/tomfocareta" ]; then
 	(cd $PATH_REPO && assert_result_like 'git config user.email' 'tomf@teamrtd.com')
+elif [ -d "/Users/tfoc" ]; then
+	(cd $PATH_REPO/dotfiles && assert_result_like 'git config user.email' 'tjfocare@gmail.com')
 fi
-(cd $PATH_REPO/dotfiles && assert_result_like 'git config user.email' 'tjfocare@gmail.com')
 
 # assert_no_git_changes
 
