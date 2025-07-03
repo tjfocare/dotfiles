@@ -76,9 +76,11 @@ if [ $DEBUG_INFO = true ]; then
 fi
 
 # Check that git config is set correctly
-if [ -d "/Users/tomfocareta" ]; then
+WORK_RTD_DIR="/Users/tomfocareta"
+PERSONAL_GIT_DIR="/Users/tfoc"
+if [ -d "$WORK_GIT_DIR" ]; then
 	(cd $PATH_REPO/toms-util-scripts && assert_result_like 'git config user.email' 'tomf@teamrtd.com' && cd -)
-elif [ -d "/Users/tfoc" ]; then
+elif [ -d $PERSONAL_GIT_DIR ]; then
 	(cd $PATH_REPO/dotfiles && assert_result_like 'git config user.email' 'tjfocare@gmail.com' && cd -)
 fi
 
