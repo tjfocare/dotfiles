@@ -1,8 +1,7 @@
 #!/usr/bin/env zsh
 
-# nvim # learn later
-# tig # learn later
 dotfiles_to_symlink=(
+	.config
 	aliases
 	fzf
 	git

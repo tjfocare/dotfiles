@@ -1,0 +1,70 @@
+linking-cursor = true
+performance = "High"
+disable-unfocused-render = false
+use-fork = false
+line-height = 1.0
+theme = "dracula"
+padding-x = 10.0
+env-vars = []
+option-as-alt = "false"
+ignore-selection-fg-color = false
+confirm-before-quit = false
+# disable-ctlseqs-alt = true
+working-dir = 'repositories'
+
+[navigation]
+mode = "Bookmark"
+color-automation = []
+clickable = true
+use-current-path = false
+use-terminal-title = false
+macos-hide-window-buttons = false
+
+[window]
+width = 1024
+height = 768
+mode = "Windowed"
+blur = true
+opacity = 0.5
+decorations = "enabled"
+macos-use-unified-titlebar = false
+macos-use-shadow = true
+windows-corner-preference = "Round"
+
+[shell]
+program = ""
+args = ["--login"]
+
+[fonts]
+size = 14.0
+
+[fonts.regular]
+family = "RobotoMono Nerd Font Mono"
+weight = 400
+style = "Normal"
+
+[fonts.bold]
+family = "RobotoMono Nerd Font Mono"
+weight = 800
+style = "Normal"
+
+[fonts.bold-italic]
+family = "RobotoMono Nerd Font Mono"
+weight = 800
+style = "Italic"
+
+[fonts.italic]
+family = "RobotoMono Nerd Font Mono"
+weight = 400
+style = "Italic"
+
+[developer]
+enable-fps-counter = false
+log-level = "OFF"
+
+[bindings]
+keys = []
+
+[title]
+content = "{{ PROGRAM }} - {{ ABSOLUTE_PATH }}"
+placeholder = "▲"
