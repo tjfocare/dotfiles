@@ -4,6 +4,29 @@ pass="\e[1;32mPass\e[0m"     # Print in green
 failed="\e[1;31mFailed\e[0m" # Print in red
 
 ################################################################################
+# Assert that the function exists.
+# When the command succeeds, it will print "Pass: \"$1\""
+# When the command fails, it will print "Failed: \"$1\"" and set
+# HAS_TEST_SUITE_PASSED to false.
+# It will also print why the command failed.
+# Globals:
+# 	HAS_TEST_SUITE_PASSED
+# Arguments:
+# 	$1: The function to test
+################################################################################
+function assert_function_exists() {
+	output=$(zsh --interactive --login -c typeset -f "$1" >/dev/null) # run in zsh
+	if $output; then
+		echo -e "$pass: $1"
+		return
+	else
+		echo -e "$failed: $1"
+		$1
+		export HAS_TEST_SUITE_PASSED=false
+	fi
+}
+
+################################################################################
 # Assert that the command passed in succeeds.
 # When the command succeeds, it will print "Pass: \"$1\""
 # When the command fails, it will print "Failed: \"$1\"" and set

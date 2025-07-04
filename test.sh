@@ -37,7 +37,7 @@ assert_success_zsh 'fzf --version'
 assert_success_zsh 'fd --version'
 assert_success_zsh 'jq --version'
 # assert_zsh_completion 'tar'   # Default that comes with zsh
-# assert_zsh_completion 'git'   # Default that comes with zsh
+# assert_zsh_completion 'git' # Default that comes with zsh
 # assert_zsh_completion 'rails' # Comes installed with zsh-completions
 # assert_success 'go version'
 
@@ -66,6 +66,11 @@ assert_success 'aws --version'
 
 # Docker
 assert_success 'docker --version'
+
+# Custom functions
+assert_function_exists 'find-port'
+assert_function_exists 'kill-port'
+assert_function_exists 'update_brew'
 
 # Print out some useful info during the CI build
 if [ $DEBUG_INFO = true ]; then
