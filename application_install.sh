@@ -29,6 +29,7 @@ homebrew_desktop_apps=(
 	monitorcontrol
 	notion
 	qlmarkdown # https://github.com/sbarex/QLMarkdown
+	rio
 	scroll-reverser
 	syntax-highlight # https://github.com/sbarex/SourceCodeSyntaxHighlight
 	spotify
