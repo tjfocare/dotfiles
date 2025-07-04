@@ -2,19 +2,17 @@
 
 MacOS dotfiles.
 
-Clone and run `install.sh`. This will
+Clone and run `install.sh`. This will:
 
-1. Install everything.
-2. Symlink the all config files.
-3. Test everything installed correctly.
+1. Install everything
+2. Symlink the all config file.
+3. Test everything installed correctly
 
 ## Terminal
 
-[Alacritty](https://github.com/alacritty/alacritty) +
-[tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://www.zsh.org/).
-
-I also like the git diffs + Github Copilot chat in
-[Vscode](https://code.visualstudio.com/docs/setup/setup-overview).
+- [Rio](https://rioterm.com/docs/install/macos)
+- [zsh](https://www.zsh.org/)
+- [oh-my-zsh](https://ohmyz.sh/)
 
 ## Fonts
 
