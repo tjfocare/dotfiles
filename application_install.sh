@@ -90,7 +90,14 @@ font="RobotoMono"
 if ! directory_exists $HOME/Library/Fonts/$font; then
 	curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/RobotoMono.zip -o $HOME/opt/$font.zip
 	unzip -q $HOME/opt/$font.zip -d ~/Library/Fonts/$font
-	rm -rf $HOME/opt/$font.zip
+	rm $HOME/opt/$font.zip
+fi
+
+# Rio Dracula theme
+if ! directory_exists "$HOME/.config/rio/themes"; then
+	curl -L https://github.com/dracula/rio-terminal/archive/main.zip -o $HOME/opt/rio-dracula.zip
+	unzip -j $HOME/opt/rio-dracula.zip "rio-terminal-main/dracula.toml" -d "$HOME/.config/rio/themes"
+	rm $HOME/opt/rio-dracula.zip
 fi
 
 # Rust and Cargo https://www.rust-lang.org/tools/install
