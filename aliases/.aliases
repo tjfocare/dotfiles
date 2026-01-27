@@ -21,6 +21,7 @@ alias nd="npm run dev"
 alias nb="npm run build"
 alias npm-packages="jq '{dependencies, devDependencies}' package.json"
 alias npm-scripts="jq .scripts package.json"
+alias pnpmci="pnpm install --frozen-lockfile"
 
 # Docker-dev
 alias start-core="cd ${PATH_REPO}/docker-dev-environment && docker compose up -d sine_core_client sine_core_worker && cd -"
