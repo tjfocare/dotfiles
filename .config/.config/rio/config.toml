@@ -13,7 +13,7 @@ confirm-before-quit = false
 working-dir = 'repositories'
 
 [navigation]
-mode = "Bookmark"
+mode = "Tab"
 color-automation = []
 clickable = true
 use-current-path = false
