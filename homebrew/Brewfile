@@ -29,7 +29,6 @@ brew "php"
 brew "pipx"
 brew "pkgconf"
 brew "poetry"
-brew "postgresql@12"
 brew "postgresql@16", link: true
 brew "pyenv"
 brew "python@3.10"
