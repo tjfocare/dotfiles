@@ -25,6 +25,8 @@
 	path = ~/.gitconfig-personal
 [includeIf "gitdir:/Users/tomfocareta/Repositories/"]
 	path = ~/.gitconfig-rtd
+[includeIf "gitdir:/Users/tomfocareta/Repositories/personal/"]
+	path = ~/.gitconfig-personal
 [interactive]
 	diffFilter = delta --color-only
 [delta]
