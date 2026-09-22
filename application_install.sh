@@ -65,13 +65,20 @@ if ! directory_exists "$HOME/opt/fzf-git"; then
 	git clone https://github.com/junegunn/fzf-git.sh.git --single-branch --branch main --depth 1 "$HOME/opt/fzf-git"
 fi
 
-pipx ensurepath
-pipx_install beancount
-pipx_install poetry # https://python-poetry.org
+# Python - uv owns interpreters, CLI tools and project envs
+# https://docs.astral.sh/uv/
+# NOTE: do not run `uv python update-shell` or `uv tool update-shell` - they
+# append to ~/.zshrc, which is a symlink into this repo. PATH is set in .zshrc.
+#
+# --default also creates bare `python` and `python3` in ~/.local/bin. It is
+# still marked experimental by uv, so it may need revisiting.
+uv python install "$PYTHON_VERSION" --default
+uv python pin --global "$PYTHON_VERSION"
 
-pipx_install ruff    # https://github.com/astral-sh/ruff
-pipx_install isort   # https://pycqa.github.io/isort/
-pipx_install pyright # https://github.com/microsoft/pyright
+uv_install beancount
+uv_install ruff    # https://github.com/astral-sh/ruff
+uv_install isort   # https://pycqa.github.io/isort/
+uv_install pyright # https://github.com/microsoft/pyright
 
 # AWS
 if ! package_installed aws; then

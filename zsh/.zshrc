@@ -5,9 +5,12 @@
 # 5) .zlogout - Can be used to execute commands when a shell exit.
 
 # Only export should be here
-pipx_path=$HOME/.local/bin
+# NOTE: local_bin must come before homebrew_path. uv installs its Python
+# executables and CLI tools there, and they need to win over any python that
+# gets pulled into /opt/homebrew/bin as a brew dependency.
+local_bin="$HOME/.local/bin"
 homebrew_path="/opt/homebrew/bin"
-export PATH="$homebrew_path:$PATH:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:$HOME/.scripts/:$pipx_path"
+export PATH="$local_bin:$homebrew_path:$PATH:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:$HOME/.scripts/"
 
 # Display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -67,13 +70,8 @@ if [ -f $HOME/.config/broot/launcher/bash/br ]; then
   source $HOME/.config/broot/launcher/bash/br
 fi
 
-# Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv >/dev/null; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-fi
+# Python is managed by uv - no shims or init needed, uv puts `python`,
+# `python3` and its CLI tools in $local_bin (see PATH above).
 
 # Zoxide (better cd)
 if command -v zoxide >/dev/null; then

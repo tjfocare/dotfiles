@@ -59,10 +59,22 @@ function brew_install() {
 	fi
 }
 
-function pipx_install() {
-	if ! package_installed "$1"; then
-		pipx install "$1"
+# The Python version uv installs as the global default.
+export PYTHON_VERSION="${PYTHON_VERSION:-3.14}"
+
+# Installs a Python CLI tool with uv (the pipx install equivalent).
+# We check `uv tool list` rather than `command -v` because a package's command
+# names don't always match the package name, e.g. beancount provides bean-check.
+function uv_install() {
+	if uv tool list 2>/dev/null | grep -q "^$1 "; then
+		echo "$1 already installed"
+		return
 	fi
+
+	# --force so we overwrite a stale executable left in ~/.local/bin by a
+	# previous pipx install. Without it uv refuses to link and the tool never
+	# registers, so this function would never become idempotent.
+	uv tool install --force "$1"
 }
 
 function npm_global_install() {

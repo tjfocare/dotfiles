@@ -28,33 +28,44 @@ All installs that involve cloning a git repo and installing from source, e.g.
 [`fzf`](https://github.com/junegunn/fzf), clone the repos to `$HOME/opt` and
 install from there.
 
-### Change python version
+### Python
+
+[uv](https://docs.astral.sh/uv/) owns Python completely - interpreters, CLI
+tools and project environments. There is no pyenv, no pipx, no poetry, and no
+`python@X` formula in the Brewfile. Nothing symlinks anything into
+`/opt/homebrew/bin` by hand.
+
+The global default version is `PYTHON_VERSION` in `helpers.sh`.
+
+`uv python install --default` puts `python` and `python3` in `~/.local/bin`,
+which `.zshrc` puts ahead of `/opt/homebrew/bin` on `PATH`. That ordering
+matters: brew formulae pull in their own `python@X` as a dependency, and
+without it those would shadow uv's.
+
+Change the global version:
 
 ```sh
-  brew unlink python3
-  sudo rm /opt/homebrew/bin/python3
-  sudo ln -s /opt/homebrew/bin/python3.9 /opt/homebrew/bin/python3
+  uv python install 3.13 --default
+  uv python pin --global 3.13
   python --version
 ```
 
-### Managing Python symlinks
-
-The command `sudo ln -s /opt/homebrew/bin/python3 /opt/homebrew/bin/python` creates a symbolic link:
-
-- `ln -s`: Create a symbolic link
-- First path (`/opt/homebrew/bin/python3`): The target (original file)
-- Second path (`/opt/homebrew/bin/python`): The symlink location
-
-This makes `python` command point to `python3`, so you can use either command.
-
-View all Python-related symlinks:
+Pin one project to a different version - writes `.python-version` in the
+current directory:
 
 ```sh
-  ls -la /opt/homebrew/bin/python*
+  uv python pin 3.12
 ```
 
-Remove a Python symlink:
+Install a Python CLI tool globally (the `pipx install` equivalent):
 
 ```sh
-  sudo rm /opt/homebrew/bin/python3
+  uv tool install ruff
+  uv tool list
+  uv tool upgrade --all
 ```
+
+> [!WARNING]
+> Don't run `uv python update-shell` or `uv tool update-shell`. Both append to
+> `~/.zshrc`, which is a symlink into this repo, so they write changes straight
+> into your dotfiles. `PATH` is already handled in `zsh/.zshrc`.

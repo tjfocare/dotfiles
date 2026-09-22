@@ -20,18 +20,24 @@ assert_success 'zsh --version'
 assert_success 'brew --version'
 assert_success 'stow --version'
 
-# Python and python package managers
+# Python - managed entirely by uv
+assert_success 'uv --version'
 assert_success 'python --version'
 assert_success 'python3 --version'
-assert_success 'pip3 --version'
-assert_success 'pipx --version'
-assert_success 'poetry --version'
-assert_success 'pyenv --version'
 
-assert_result_like 'python --version' "3"
-assert_result_like 'python3 --version' "3"
-assert_result_like 'which python3' "opt/homebrew/bin/python3"
-assert_result_like 'which pip3' "opt/homebrew/bin/pip3"
+# Both must resolve to uv's executables, not a brew python pulled in as a dep
+assert_result_like 'which python' "$HOME/.local/bin/python"
+assert_result_like 'which python3' "$HOME/.local/bin/python3"
+assert_result_like 'python --version' "$PYTHON_VERSION"
+assert_result_like 'python3 --version' "$PYTHON_VERSION"
+
+# Python CLI tools installed via `uv tool install`
+assert_success 'ruff --version'
+assert_success 'isort --version'
+assert_success 'pyright --version'
+# beancount's command names don't match the package name and changed in v3,
+# so assert on the uv registration rather than on a specific executable
+assert_result_like 'uv tool list' 'beancount'
 
 assert_success_zsh 'fzf --version'
 assert_success_zsh 'fd --version'

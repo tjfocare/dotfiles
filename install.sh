@@ -16,20 +16,18 @@ if ! package_installed brew; then
 	NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Install stow and python
-# - We need to manually specify the paths because this happens before symlinking everything
-# - We want our proper python setup before doing pip installs
+# Install stow, which we need before symlinking anything
+# - We use the full brew path because ~/.zshrc isn't symlinked yet, so
+#   /opt/homebrew/bin isn't on PATH
+# - Python is NOT installed here. uv owns Python entirely, and uv is installed
+#   later from the Brewfile. See application_install.sh
 # https://www.gnu.org/software/stow/
-# https://formulae.brew.sh/formula/python@3.11
-
-python_versions=(python@3 python@3.10 python@3.9)
 
 if chip_is apple_silicon; then
-	/opt/homebrew/bin/brew install "${python_versions[@]}" stow
+	/opt/homebrew/bin/brew install stow
 
-	# Make brew and stow available when symlinking - ensure brew python first
+	# Make brew and stow available when symlinking
 	export PATH="/opt/homebrew/bin:$PATH"
-	ln -sf /opt/homebrew/bin/python3 /opt/homebrew/bin/python
 fi
 
 # Clone setup git repos here
