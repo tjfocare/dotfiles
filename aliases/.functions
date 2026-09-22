@@ -36,3 +36,43 @@ ecs_fetch_task_definition() {
 
   aws ecs describe-task-definition --task-definition "$ARN" --query 'taskDefinition.containerDefinitions[*].image' --output text
 }
+
+aws-mfa() {
+  local code="$1"
+  [ -z "$code" ] && { echo "usage: aws-mfa 123456"; return 1; }
+
+  unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+
+  local serial creds
+  serial=$(aws iam list-mfa-devices --query 'MFADevices[0].SerialNumber' --output text) || return 1
+  creds=$(aws sts get-session-token \
+            --serial-number "$serial" \
+            --token-code "$code" \
+            --duration-seconds 43200 \
+            --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken,Expiration]' \
+            --output text) || return 1
+
+  export AWS_ACCESS_KEY_ID=$(echo "$creds" | cut -f1)
+  export AWS_SECRET_ACCESS_KEY=$(echo "$creds" | cut -f2)
+  export AWS_SESSION_TOKEN=$(echo "$creds" | cut -f3)
+  export AWS_SESSION_EXPIRY=$(echo "$creds" | cut -f4)
+  echo "Session valid 12h. Identity:"
+  aws sts get-caller-identity --query Arn --output text
+}
+
+aws-mfa-clear() {
+  unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN AWS_SESSION_EXPIRY
+  echo "Session credentials cleared."
+}
+
+aws-mfa-check() {
+  [ -z "$AWS_SESSION_EXPIRY" ] && { echo "No MFA session."; return 1; }
+  local now exp
+  now=$(date -u +%s)
+  exp=$(date -u -d "$AWS_SESSION_EXPIRY" +%s 2>/dev/null || date -u -jf "%Y-%m-%dT%H:%M:%S+00:00" "$AWS_SESSION_EXPIRY" +%s)
+  if [ "$now" -ge "$exp" ]; then
+    aws-mfa-clear
+    return 1
+  fi
+  echo "Session valid for $(( (exp - now) / 60 )) more minutes."
+}
