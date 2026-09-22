@@ -99,12 +99,8 @@ if ! directory_exists $HOME/Library/Fonts/$font; then
 	rm $HOME/opt/$font.zip
 fi
 
-# Rio Dracula theme
-if ! directory_exists "$HOME/.config/rio/themes"; then
-	curl -L https://github.com/dracula/rio-terminal/archive/main.zip -o $HOME/opt/rio-dracula.zip
-	unzip -j $HOME/opt/rio-dracula.zip "rio-terminal-main/dracula.toml" -d "$HOME/.config/rio/themes"
-	rm $HOME/opt/rio-dracula.zip
-fi
+# Rio Dracula theme is tracked in .config/.config/rio/themes and symlinked by
+# symlink.sh - downloading it here would write real files into the stow target
 
 # Rust and Cargo https://www.rust-lang.org/tools/install
 if ! package_installed rustup; then

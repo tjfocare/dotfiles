@@ -84,7 +84,7 @@ function cargo_install() {
 }
 
 function check_environment_variable() {
-	if [[ -z "${!1}" ]]; then
+	if [[ -z "${(P)1}" ]]; then
 		echo "ERROR: variable $1 not set"
 		exit 1
 	fi
