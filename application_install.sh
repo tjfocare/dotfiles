@@ -7,7 +7,7 @@ source helpers.sh
 xcode-select --install || true
 
 if ! directory_exists $HOME/.oh-my-zsh; then
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+	KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
 if ! directory_exists $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions; then
@@ -44,18 +44,24 @@ done
 # NVM node manager https://github.com/nvm-sh/nvm
 if ! package_installed node; then
 	PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash'
+	# Make sure nvm is loaded - the installer ran in a subshell with
+	# PROFILE=/dev/null, so nothing sourced nvm into this shell
+	export NVM_DIR="$HOME/.nvm"
 	# shellcheck source=/dev/null
-	# Make sure nvm is loaded
-	. ~/.zprofile || true
+	. "$NVM_DIR/nvm.sh"
 	nvm install --lts # Install the latest LTS version of node
 	nvm use --lts
 	nvm alias default "lts/*"
 	corepack enable
 fi
 
+# Broot - generates the `br` launcher shell function sourced by .zshrc
+if ! directory_exists "$HOME/.config/broot/launcher"; then
+	broot --install
+fi
+
 # fzf-git
 if ! directory_exists "$HOME/opt/fzf-git"; then
-	rm -rf "$HOME/opt/fzf-git"
 	git clone https://github.com/junegunn/fzf-git.sh.git --single-branch --branch main --depth 1 "$HOME/opt/fzf-git"
 fi
 
