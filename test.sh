@@ -80,14 +80,20 @@ if [ $DEBUG_INFO = true ]; then
 	ls -al /usr/local/bin
 fi
 
-# Check that git config is set correctly
-WORK_RTD_DIR="/Users/tomfocareta"
-PERSONAL_GIT_DIR="/Users/tfoc"
-if [ -d "$WORK_GIT_DIR" ]; then
-	(cd $PATH_REPO/toms-util-scripts && assert_result_like 'git config user.email' 'tomf@teamrtd.com' && cd -)
-elif [ -d $PERSONAL_GIT_DIR ]; then
-	(cd $PATH_REPO/dotfiles && assert_result_like 'git config user.email' 'tjfocare@gmail.com' && cd -)
-fi
+# Check that the gitconfig conditional includes resolve to the right identity.
+# Uses throwaway repos so this doesn't depend on which repos happen to be cloned.
+WORK_GIT_DIR="$PATH_REPO/.gitconfig-test"
+PERSONAL_GIT_DIR="$PATH_REPO/personal/.gitconfig-test"
+
+for test_repo in "$WORK_GIT_DIR" "$PERSONAL_GIT_DIR"; do
+	mkdir -p "$test_repo"
+	git -C "$test_repo" init --quiet
+done
+
+assert_result_like "git -C $WORK_GIT_DIR config user.email" 'tomf@teamrtd.com'
+assert_result_like "git -C $PERSONAL_GIT_DIR config user.email" 'tjfocare@gmail.com'
+
+rm -rf "$WORK_GIT_DIR" "$PERSONAL_GIT_DIR"
 
 # assert_no_git_changes
 
